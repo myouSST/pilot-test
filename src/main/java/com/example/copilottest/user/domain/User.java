@@ -4,6 +4,7 @@ import java.util.List;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,7 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Getter
-@EqualsAndHashCode
-@ToString
+@Data
 public class User {
 
     private String id;
@@ -24,8 +23,10 @@ public class User {
 
     private List<Skill> skills;
 
+    private IdList teamIds;
+
     public static User sample() {
-        return new User("myou", "유민", "http://test-profile.co.kr", List.of(Skill.sample(), Skill.sample2()));
+        return new User("myou", "유민", "http://test-profile.co.kr", List.of(Skill.sample(), Skill.sample2()), IdList.of("c-team"));
     }
 
     public List<String> getAllSkillNames() {

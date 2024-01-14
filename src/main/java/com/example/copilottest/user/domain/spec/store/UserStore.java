@@ -1,5 +1,7 @@
 package com.example.copilottest.user.domain.spec.store;
 
+import java.util.List;
+
 import com.example.copilottest.user.domain.User;
 
 public interface UserStore {
@@ -10,4 +12,5 @@ public interface UserStore {
 
     void deleteUser(String userId);
 
+    List<User> findAll();
 }

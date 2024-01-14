@@ -1,4 +1,6 @@
-package com.example.copilottest.user.service;
+package com.example.copilottest.user.service.crud;
+
+import java.util.List;
 
 import com.example.copilottest.user.domain.User;
 import com.example.copilottest.user.domain.spec.store.UserStore;
@@ -12,6 +14,10 @@ public class UserService {
 
     public User findUser(String userId) {
         return userStore.findUser(userId);
+    }
+
+    public List<User> findAll() {
+        return userStore.findAll();
     }
 
     public User saveUser(User user) {

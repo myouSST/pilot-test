@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import com.example.copilottest.user.domain.User;
 import com.example.copilottest.user.domain.spec.store.UserStore;
+import com.example.copilottest.user.service.crud.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

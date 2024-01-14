@@ -35,4 +35,9 @@ public class UserCacheStore implements UserStore {
     public void deleteUser(String userId) {
         userList.removeIf(user -> user.getId().equals(userId));
     }
+
+    @Override
+    public List<User> findAll() {
+        return userList;
+    }
 }
