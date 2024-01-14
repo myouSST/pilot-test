@@ -29,6 +29,16 @@ public class User {
         return new User("myou", "유민", "http://test-profile.co.kr", List.of(Skill.sample(), Skill.sample2()), IdList.of("c-team"));
     }
 
+    public static User sample2() {
+        return new User(
+            "hong", // 사용자 아이디
+            "홍길동", // 사용자 이름
+            "http://test-profile.co.kr/hong", // 프로필 URL
+            List.of(Skill.sample(), Skill.sample2()), // 사용자 스킬
+            IdList.of("t1", "t2", "t3") // 사용자가 속한 팀의 ID 리스트
+        );
+    }
+
     public List<String> getAllSkillNames() {
         return skills.stream().map(Skill::getName).toList();
     }
