@@ -44,6 +44,7 @@ public class UserQueryService {
     }
 
     private Team getTeam(String teamId) {
+        //
         return teamService.find(teamId);
     }
 }
