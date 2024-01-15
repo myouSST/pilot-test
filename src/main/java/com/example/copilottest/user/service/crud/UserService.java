@@ -27,4 +27,8 @@ public class UserService {
     public void deleteUser(String userId) {
         userStore.deleteUser(userId);
     }
+
+    public static void main(String[] args) {
+        System.out.println("test commits");
+    }
 }
