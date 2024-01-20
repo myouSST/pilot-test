@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.copilottest.user.domain.User;
-import com.example.copilottest.user.domain.spec.store.UserStore;
+import com.example.copilottest.user.spec.store.UserStore;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;

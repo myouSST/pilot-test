@@ -1,4 +1,4 @@
-package com.example.copilottest.user.domain.spec.store;
+package com.example.copilottest.user.spec.store;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.example.copilottest.user.domain.Team;
 import com.example.copilottest.user.domain.User;
-import com.example.copilottest.user.domain.spec.sdo.UserRdo;
+import com.example.copilottest.user.spec.sdo.UserRdo;
 import com.example.copilottest.user.domain.util.ListUtil;
 import com.example.copilottest.user.service.crud.TeamService;
 import com.example.copilottest.user.service.crud.UserService;
@@ -20,9 +20,9 @@ public class UserQueryService {
     private final TeamService teamService;
 
     public UserRdo find(String userId) {
-        User user = userService.findUser(userId);
+        User user = userService.find(userId);
         List<Team> teams = user.getTeamIds().stream()
-            .map(teamService::find)
+            .map(this::getTeam)
             .toList();
 
         return new UserRdo(user, teams);
@@ -44,7 +44,6 @@ public class UserQueryService {
     }
 
     private Team getTeam(String teamId) {
-        //
         return teamService.find(teamId);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.copilottest.user.service.crud;
 
 import com.example.copilottest.user.domain.User;
-import com.example.copilottest.user.domain.spec.store.UserStore;
+import com.example.copilottest.user.spec.store.UserStore;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,7 +28,7 @@ public class JetBrainUserServiceTest {
         User user = User.sample();
         when(userStore.findUser("TEST_ID")).thenReturn(user);
 
-        User result = userService.findUser("TEST_ID");
+        User result = userService.find("TEST_ID");
         assertEquals(user, result);
         verify(userStore, times(1)).findUser("TEST_ID");
     }
@@ -49,7 +49,7 @@ public class JetBrainUserServiceTest {
         User user = User.sample();
         when(userStore.saveUser(user)).thenReturn(user);
 
-        User result = userService.saveUser(user);
+        User result = userService.save(user);
         assertEquals(user, result);
         verify(userStore, times(1)).saveUser(user);
     }
@@ -58,7 +58,7 @@ public class JetBrainUserServiceTest {
     public void deleteUserTest() {
         doNothing().when(userStore).deleteUser("TEST_ID");
 
-        userService.deleteUser("TEST_ID");
+        userService.delete("TEST_ID");
         verify(userStore, times(1)).deleteUser("TEST_ID");
     }
 }

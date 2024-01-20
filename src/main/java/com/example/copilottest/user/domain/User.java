@@ -39,6 +39,10 @@ public class User {
         );
     }
 
+    public static User sample(String userId) {
+        return new User(userId, userId, "http://test-profile.co.kr", List.of(Skill.sample(), Skill.sample2()), IdList.of("c-team"));
+    }
+
     public List<String> getAllSkillNames() {
         return skills.stream().map(Skill::getName).toList();
     }

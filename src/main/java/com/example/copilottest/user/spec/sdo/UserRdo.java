@@ -1,4 +1,4 @@
-package com.example.copilottest.user.domain.spec.sdo;
+package com.example.copilottest.user.spec.sdo;
 
 import java.util.List;
 
@@ -19,13 +19,13 @@ public class UserRdo {
 
     private List<Skill> skills;
 
-    private List<TeamRdo> teamIds;
+    private List<TeamRdo> teams;
 
     public UserRdo(User user, List<Team> teams) {
         this.id = user.getId();
         this.name = user.getName();
         this.profileUrl = user.getProfileUrl();
         this.skills = user.getSkills();
-        this.teamIds = teams.stream().map(TeamRdo::new).toList();
+        this.teams = teams.stream().map(TeamRdo::new).toList();
     }
 }

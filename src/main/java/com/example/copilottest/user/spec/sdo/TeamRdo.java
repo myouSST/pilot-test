@@ -1,4 +1,4 @@
-package com.example.copilottest.user.domain.spec.sdo;
+package com.example.copilottest.user.spec.sdo;
 
 import com.example.copilottest.user.domain.Team;
 import lombok.AllArgsConstructor;

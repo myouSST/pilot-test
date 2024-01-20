@@ -3,7 +3,7 @@ package com.example.copilottest.user.service.crud;
 import java.util.List;
 
 import com.example.copilottest.user.domain.User;
-import com.example.copilottest.user.domain.spec.store.UserStore;
+import com.example.copilottest.user.spec.store.UserStore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserStore userStore;
 
-    public User findUser(String userId) {
+    public User find(String userId) {
         return userStore.findUser(userId);
     }
 
@@ -20,11 +20,11 @@ public class UserService {
         return userStore.findAll();
     }
 
-    public User saveUser(User user) {
+    public User save(User user) {
         return userStore.saveUser(user);
     }
 
-    public void deleteUser(String userId) {
+    public void delete(String userId) {
         userStore.deleteUser(userId);
     }
 }
