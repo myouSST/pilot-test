@@ -16,34 +16,48 @@ public class JetBrainUserManageService {
 
     private final UserService userService;
 
+
     public UserManageRdo createUser(UserManageCdo userManageCdo) {
-        // validate input
+        checkInputValidity(userManageCdo);
+        validateUserExistence(userManageCdo.getUserId());
+        Center center = validateCenterExistence(userManageCdo.getCenterId());
+
+        joinCenter(userManageCdo.getCenterId(), userManageCdo.getUserId());
+        User user = saveUser(userManageCdo.getUserId());
+        return new UserManageRdo(user, center);
+    }
+
+    private void checkInputValidity(UserManageCdo userManageCdo) {
         if (userManageCdo == null || userManageCdo.getUserId() == null || userManageCdo.getCenterId() == null) {
             throw new IllegalArgumentException("Invalid input!");
         }
+    }
 
-        // check if user exists & center exists before saving & joining
-        User current = userService.find(userManageCdo.getUserId());
+    private void validateUserExistence(String userId) {
+        User current = userService.find(userId);
         if (current != null) {
-            throw new IllegalArgumentException("User with ID " + userManageCdo.getUserId() + " already exists!");
+            throw new IllegalArgumentException("User with ID " + userId + " already exists!");
         }
+    }
 
-        Center center = centerService.findCenter(userManageCdo.getCenterId());
+    private Center validateCenterExistence(String centerId) {
+        Center center = centerService.findCenter(centerId);
         if (center == null) {
-            throw new IllegalArgumentException("Center with ID " + userManageCdo.getCenterId() + " could not be found!");
+            throw new IllegalArgumentException("Center with ID " + centerId + " could not be found!");
         }
+        return center;
+    }
 
-        // catch exceptions for already existing members
+    private void joinCenter(String centerId, String userId) {
         try {
-            centerService.joinMember(userManageCdo.getCenterId(), userManageCdo.getUserId());
-        } catch(IllegalArgumentException e) {
-            // user already exists, handle accordingly
+            centerService.joinMember(centerId, userId);
+        } catch (IllegalArgumentException e) {
             System.out.println("User is already a member!");
             throw e;
         }
+    }
 
-        User user = userService.save(User.sample(userManageCdo.getUserId()));
-
-        return new UserManageRdo(user, center);
+    private User saveUser(String userId) {
+        return userService.save(User.sample(userId));
     }
 }
