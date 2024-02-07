@@ -13,8 +13,8 @@ public class Team {
 
     private String description;
 
-    public static Team sample() {
-        return new Team("a-team", "A 팀", "Avengers");
+    public static Team sample(String teamId) {
+        return new Team(teamId, "A 팀", "Avengers");
     }
 
     public static Team sample1() {
