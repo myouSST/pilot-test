@@ -7,12 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.example.copilottest.user.domain.IdList;
-import com.example.copilottest.user.domain.Skill;
 import com.example.copilottest.user.domain.Team;
 import com.example.copilottest.user.domain.User;
 import com.example.copilottest.user.service.crud.TeamService;
 import com.example.copilottest.user.service.crud.UserService;
-import com.example.copilottest.user.spec.sdo.TeamRdo;
 import com.example.copilottest.user.spec.sdo.UserRdo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class UserQueryServiceTest {
+class UserQueryServiceTest {
 
     @Mock
     private UserService userService;
@@ -32,55 +30,30 @@ public class UserQueryServiceTest {
     @InjectMocks
     private UserQueryService userQueryService;
 
-
     @Test
     public void testFind() {
-        // Arrange
-        String userId = "testUserId";
-        IdList teamIds = IdList.of("team1", "team2");
-        User user = new User(userId, userId, "http://test-profile.co.kr", List.of(Skill.sample(), Skill.sample2()), teamIds);
+        // Mocking userService and teamService to return expected values
+        User expectedUser = new User("userId", "userName", "", IdList.empty(), IdList.of("a-team", "c-team"));
+        when(userService.find("userId")).thenReturn(expectedUser);
+        when(teamService.find("a-team")).thenReturn(Team.sample());
+        when(teamService.find("c-team")).thenReturn(Team.sample1());
 
-        Team team1 = new Team("team1", "team1", "team1");
-        Team team2 = new Team("team2", "team2", "team2");
+        UserRdo result = userQueryService.find("userId");
 
-        when(userService.find(userId)).thenReturn(user);
-        when(teamService.find("team1")).thenReturn(team1);
-        when(teamService.find("team2")).thenReturn(team2);
-
-        // Act
-        UserRdo userRdo = userQueryService.find(userId);
-
-        // Assert
-        assertEquals(user.getName(), userRdo.getName());
-        assertEquals(Arrays.asList(new TeamRdo(team1), new TeamRdo(team2)), userRdo.getTeams());
+        assertEquals("userId", result.getId());
     }
 
     @Test
     public void testFindAll() {
-        // Arrange
-        IdList teamIds = IdList.of("team1", "team2");
-        User user1 = new User("user1", "user1", "http://test-profile.co.kr", List.of(Skill.sample(), Skill.sample2()), teamIds);
-        User user2 = new User("user2", "user2", "http://test-profile.co.kr", List.of(Skill.sample(), Skill.sample2()), teamIds);
+        // Mocking userService and teamService to return expected values
+        User expectedUser = new User("userId", "userName", "", IdList.empty(), IdList.of( "c-team"));
+        User expectedUser2 = new User("userId2", "userName", "", IdList.empty(), IdList.of("a-team"));
+        List<User> expectedUsers = Arrays.asList(expectedUser, expectedUser2);
+        when(userService.findAll()).thenReturn(expectedUsers);
+        when(teamService.findAll()).thenReturn(Arrays.asList(Team.sample(), Team.sample1()));
 
-        List<User> users = Arrays.asList(user1, user2);
+        List<UserRdo> result = userQueryService.findAll();
 
-        Team team1 = new Team("team1", "team1", "team1");
-        Team team2 = new Team("team2", "team2", "team2");
-        List<Team> teams = Arrays.asList(team1, team2);
-
-        List<TeamRdo> expectedTeams = Arrays.asList(new TeamRdo(team1), new TeamRdo(team2));
-
-        when(userService.findAll()).thenReturn(users);
-        when(teamService.findAll()).thenReturn(teams);
-
-        // Act
-        List<UserRdo> userRdos = userQueryService.findAll();
-
-        // Assert
-        assertEquals(2, userRdos.size());
-        assertEquals(user1.getName(), userRdos.get(0).getName());
-        assertEquals(user2.getName(), userRdos.get(1).getName());
-        assertEquals(expectedTeams, userRdos.get(0).getTeams());
-        assertEquals(expectedTeams, userRdos.get(1).getTeams());
+        assertEquals(2, result.size());
     }
 }

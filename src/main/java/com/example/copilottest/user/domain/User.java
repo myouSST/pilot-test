@@ -1,14 +1,12 @@
 package com.example.copilottest.user.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -26,7 +24,7 @@ public class User {
     private IdList teamIds;
 
     public static User sample() {
-        return new User("myou", "유민", "http://test-profile.co.kr", List.of(Skill.sample(), Skill.sample2()), IdList.of("c-team"));
+        return new User("myou", "유민", "http://test-profile.co.kr", new ArrayList<>(List.of(Skill.sample(), Skill.sample2())), IdList.of("c-team"));
     }
 
     public static User sample2() {
