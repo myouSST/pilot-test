@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
@@ -23,5 +21,9 @@ public class IdList extends ArrayList<String> {
 
     public static IdList of(String... ids) {
         return new IdList(ids);
+    }
+
+    public static IdList empty() {
+        return new IdList(new ArrayList<>());
     }
 }
