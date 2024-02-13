@@ -24,4 +24,8 @@ public class Skill {
     public static Skill sample2() {
         return new Skill("ANDROID", SkillType.APP_DEVELOP);
     }
+
+    public boolean isEssential() {
+        return type.isEssential();
+    }
 }

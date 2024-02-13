@@ -22,12 +22,14 @@ public class User {
 
     private String profileUrl;
 
+    private Role role;
+
     private List<Skill> skills;
 
     private IdList teamIds;
 
     public static User sample() {
-        return new User("myou", "유민", "http://test-profile.co.kr", new ArrayList<>(Arrays.asList(Skill.sample(), Skill.sample2())), IdList.of("c-team"));
+        return new User("myou", "유민", "http://test-profile.co.kr", Role.USER, new ArrayList<>(Arrays.asList(Skill.sample(), Skill.sample2())), IdList.of("c-team"));
     }
 
     public static User sample2() {
@@ -35,13 +37,14 @@ public class User {
             "hong", // 사용자 아이디
             "홍길동", // 사용자 이름
             "http://test-profile.co.kr/hong", // 프로필 URL
+            Role.USER, // 사용자 역할
             new ArrayList<>(Arrays.asList(Skill.sample(), Skill.sample2())), // 사용자 스킬
             IdList.of("t1", "t2", "t3") // 사용자가 속한 팀의 ID 리스트
         );
     }
 
     public static User sample(String userId) {
-        return new User(userId, userId, "http://test-profile.co.kr", new ArrayList<>(Arrays.asList(Skill.sample(), Skill.sample2())), IdList.of("c-team"));
+        return new User(userId, userId, "http://test-profile.co.kr", Role.USER, new ArrayList<>(Arrays.asList(Skill.sample(), Skill.sample2())), IdList.of("c-team"));
     }
 
     public List<String> getAllSkillNames() {
@@ -56,8 +59,24 @@ public class User {
         skills.add(skill);
     }
 
-    public void removeSkill(Skill role) {
-        skills.remove(role);
+    public void addSkills(Skill... skills) {
+        this.skills.addAll(Arrays.asList(skills));
+    }
+
+    public void removeSkill(Skill skill, User requester) {
+        if (skill.isEssential()) {
+            throw new IllegalArgumentException("필수 스킬은 삭제할 수 없습니다.");
+        }
+
+        if (!requester.isAdministrator()) {
+            throw new IllegalArgumentException("관리자만 스킬을 삭제할 수 있습니다.");
+        }
+
+        skills.remove(skill);
+    }
+
+    public boolean isAdministrator() {
+        return role == Role.ADMIN;
     }
 
     public static void main(String[] args) {
