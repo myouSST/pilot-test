@@ -14,11 +14,11 @@ public class Team {
     private String description;
 
     public static Team sample() {
-        return new Team("a-team", "A 팀", "Avengers");
+        return new Team("c-team", "C 팀", "salesbridge 서비스를 제공합니다.");
     }
 
     public static Team sample1() {
-        return new Team("c-team", "C 팀", "salesbridge 서비스를 제공합니다.");
+        return new Team("a-team", "A 팀", "Avengers");
     }
 
     public static Team sample2() {

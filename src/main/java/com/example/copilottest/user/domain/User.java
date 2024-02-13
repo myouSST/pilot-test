@@ -37,9 +37,9 @@ public class User {
             "hong", // 사용자 아이디
             "홍길동", // 사용자 이름
             "http://test-profile.co.kr/hong", // 프로필 URL
-            Role.USER, // 사용자 역할
+            Role.ADMIN, // 사용자 역할
             new ArrayList<>(Arrays.asList(Skill.sample(), Skill.sample2())), // 사용자 스킬
-            IdList.of("t1", "t2", "t3") // 사용자가 속한 팀의 ID 리스트
+            IdList.of("c-team", "b-team") // 사용자가 속한 팀의 ID 리스트
         );
     }
 
